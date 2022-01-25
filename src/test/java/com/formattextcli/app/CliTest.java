@@ -37,6 +37,7 @@ public class CliTest {
     @Test
     void applicationStarts() {
         cli.start(new String[] {});
+        assertEquals("Do you need some help to learn how to use this CLI tool?", out.toString().trim());
     }
 
     @Test
@@ -49,5 +50,11 @@ public class CliTest {
     void runsVersionCommandShortened() {
         cli.start(new String[] { "-v" });
         assertEquals("Version: 1.0.0", out.toString().trim());
+    }
+
+    @Test
+    void runsDefaultCommandWithInvalidFilePath() {
+        cli.start(new String[] { "somewrongrandomfilepath" });
+        assertEquals("It seems that it is an incorrect file path", out.toString().trim());
     }
 }
