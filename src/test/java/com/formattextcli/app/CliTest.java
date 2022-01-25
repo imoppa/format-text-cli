@@ -57,4 +57,10 @@ public class CliTest {
         cli.start(new String[] { "somewrongrandomfilepath" });
         assertEquals("It seems that it is an incorrect file path", out.toString().trim());
     }
+
+    @Test
+    void runsFileCommand() {
+        cli.start(new String[] { "somewrongrandomfilepath" });
+        assertEquals("It seems that it is an incorrect file path", out.toString().trim());
+    }
 }
