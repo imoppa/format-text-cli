@@ -73,28 +73,35 @@ public class Cli {
 
     private void _formatLines(ArrayList<Line> formattedLines, String lineFromFile) {
         if (lineFromFile.isEmpty()) {
+            int currentLineIndex = formattedLines.size()-1;
             // previous line has length, then add an empty line
-            Line currentLine = formattedLines.get(formattedLines.size()-1);
-            if (currentLine.lineText.length() != 0) {
-                Line newLine = new Line(true);
-                newLine.addText("");
-                formattedLines.add(newLine);
+            Line currentLine = formattedLines.get(currentLineIndex);
+            if (currentLine.lineText.length() == 0) {
+                return;
             }
-        } else {
-            if (formattedLines.size() == 0) {
-                formattedLines.add(new Line());
-            }
-            Arrays.stream(lineFromFile.split(" ")).forEach(s -> {
-                Line currentLine = formattedLines.get(formattedLines.size()-1);
-                if (currentLine.checkAddCapacity(s)) {
-                    currentLine.addText(s);
-                    formattedLines.set(formattedLines.size()-1, currentLine);
-                } else {
-                    Line newLine = new Line();
-                    newLine.addText(s);
-                    formattedLines.add(newLine);
-                }
-            });
+
+            Line newLine = new Line(true);
+            newLine.addText("");
+            formattedLines.add(newLine);
+            return;
         }
+
+        if (formattedLines.size() == 0) {
+            formattedLines.add(new Line());
+        }
+
+        Arrays.stream(lineFromFile.split(" ")).forEach(s -> {
+            int lineIndex = formattedLines.size()-1;
+            Line currentLine = formattedLines.get(lineIndex);
+            if (currentLine.checkAddCapacity(s)) {
+                currentLine.addText(s);
+                formattedLines.set(lineIndex, currentLine);
+                return;
+            }
+
+            Line newLine = new Line();
+            newLine.addText(s);
+            formattedLines.add(newLine);
+        });
     }
 }
