@@ -63,10 +63,8 @@ public class Cli {
                 }
             }
 
-            for (int j = 0; j < formattedLines.size(); j++) {
-                Line l = formattedLines.get(j);
-                l.printLine();
-            }
+            formattedLines.forEach(l -> l.printLine());
+
         } catch (Exception e) {
             System.err.println("Something went wrong!");
             System.err.println(e);
