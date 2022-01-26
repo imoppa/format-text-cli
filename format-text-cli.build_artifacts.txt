@@ -1,3 +1,0 @@
-[EXECUTABLE]
-format-text-cli
-
