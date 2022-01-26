@@ -1,3 +1,35 @@
+
+
+## how to package it
+```shell
+mvn clean package
+```
+
+## how to test it
+```shell
+mvn clean test
+```
+## how to run jar file
+```shell
+java -cp target/format-text-cli-{version}-SNAPSHOT.jar com.formattextcli.app.App {your-text}.txt
+```
+## how to run cli executable
+```shell
+// 1. download the executable file first
+// 2. run the following command
+./format-text {your-text}.txt
+```
+
+## how to generate cli executable
+```shell
+// 1. install graalvm
+// 2. install native-image
+// 3. run the following command
+native-image -cp target/format-text-cli-{version}-SNAPSHOT.jar com.formattextcli.app.App {your-cli-image-name}
+```
+
+## Thinking out loud
+
 This CLI tool is designed to read a text file with lines of unorganized words and format them into trimmed and sanitized output printed in the terminal.
 - it will break the string into a new line by 80 characters
 - it will only show one line break when there are multiples between the paragraphs
