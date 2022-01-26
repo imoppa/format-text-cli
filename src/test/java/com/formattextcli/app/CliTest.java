@@ -3,9 +3,11 @@ package com.formattextcli.app;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,6 +16,9 @@ public class CliTest {
     private final ByteArrayOutputStream err = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
+
+    @TempDir
+    Path tempDir;
 
     Cli cli;
 
@@ -53,8 +58,10 @@ public class CliTest {
     }
 
     @Test
-    void runsDefaultCommandWithInvalidFilePath() {
-        cli.start(new String[] { "somewrongrandomfilepath" });
-        assertEquals("It seems that it is an incorrect file path", out.toString().trim());
+    void runsDefaultCommandToParseFileIntoLines() throws IOException {
+        final Path tempFile = Files.createFile(tempDir.resolve("myfile.txt"));
+        Files.writeString(tempFile, "some        stringaerawerawrfasdfsafsdafdsafwemroqweroiqwerniowen weoirqoweijr reqwirojewor qweorijq\n        nreally long\n\n\n\n\n\n\n\n\nntext");
+        cli.start(new String[] { tempFile.toString() });
+        assertEquals("some stringaerawerawrfasdfsafsdafdsafwemroqweroiqwerniowen weoirqoweijr\nreqwirojewor qweorijq nreally long\n\nntext", out.toString().trim());
     }
 }
