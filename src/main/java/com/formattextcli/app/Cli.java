@@ -1,9 +1,6 @@
 package com.formattextcli.app;
 
 import java.io.*;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +43,9 @@ public class Cli {
     private void _handleDefaultCommand(String filePath) {
         try {
             FileHelper fileHelper = new FileHelper(filePath);
+            boolean exists = fileHelper.exists();
             if (!fileHelper.exists()) {
+                System.err.println("It seems that it is an incorrect file path");
                 return;
             }
 
@@ -74,12 +73,13 @@ public class Cli {
     private void _formatLines(ArrayList<Line> formattedLines, String lineFromFile) {
         if (lineFromFile.isEmpty()) {
             int currentLineIndex = formattedLines.size()-1;
-            // previous line has length, then add an empty line
+            // previous line has no length, then it's most likely an empty line -> skip it
             Line currentLine = formattedLines.get(currentLineIndex);
             if (currentLine.lineText.length() == 0) {
                 return;
             }
 
+            // otherwise this is a new empty line, which serves as a divider
             Line newLine = new Line(true);
             newLine.addText("");
             formattedLines.add(newLine);
@@ -93,7 +93,7 @@ public class Cli {
         Arrays.stream(lineFromFile.split(" ")).forEach(s -> {
             int lineIndex = formattedLines.size()-1;
             Line currentLine = formattedLines.get(lineIndex);
-            if (currentLine.checkAddCapacity(s)) {
+            if (currentLine.canAddLine(s)) {
                 currentLine.addText(s);
                 formattedLines.set(lineIndex, currentLine);
                 return;

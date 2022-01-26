@@ -1,7 +1,6 @@
 package com.formattextcli.app;
 
 import java.io.*;
-import java.net.URI;
 import java.nio.file.Path;
 
 public class FileHelper {

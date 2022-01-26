@@ -2,15 +2,15 @@ package com.formattextcli.app;
 
 public class Line {
     String lineText = "";
-    boolean isSeperator = false;
+    boolean isDivider = false;
 
     public Line() { }
-    public Line(boolean isSeperator) {
-        this.isSeperator = isSeperator;
+    public Line(boolean isDivider) {
+        this.isDivider = isDivider;
     }
 
-    public boolean checkAddCapacity(String text) {
-        return text.length() + this.lineText.length() < 80 && !this.isSeperator;
+    public boolean canAddLine(String text) {
+        return text.length() + this.lineText.length() < 80 && !this.isDivider;
     }
 
     public void addText(String text) {
