@@ -52,15 +52,9 @@ public class CliTest {
         assertEquals("Version: 1.0.0", out.toString().trim());
     }
 
-    @Test
-    void runsDefaultCommandWithInvalidFilePath() {
-        cli.start(new String[] { "somewrongrandomfilepath" });
-        assertEquals("It seems that it is an incorrect file path", out.toString().trim());
-    }
-
-    @Test
-    void runsFileCommand() {
-        cli.start(new String[] { "somewrongrandomfilepath" });
-        assertEquals("It seems that it is an incorrect file path", out.toString().trim());
-    }
+//    @Test
+//    void runsDefaultCommandWithInvalidFilePath() {
+//        cli.start(new String[] { "somewrongrandomfilepath" });
+//        assertEquals("It seems that it is an incorrect file path", out.toString().trim());
+//    }
 }
