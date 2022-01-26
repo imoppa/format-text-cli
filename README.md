@@ -5,31 +5,21 @@ This CLI tool is designed to read a text file with lines of unorganized words an
 For instance,
 
 ```
-This is                        some very badly             formatted
-
-text. It is going to be a quick but slightly challenging exercise for some
-cli tooling related development more than data structure and algorithm.
-
+This is
+a badly formatted file. This line is pretty long! It's way more than 80 characters! I feel a line
+wrap coming on!
 
 
-
-
-
-However, this essentially comes down to the data structure and algorithm. 
-
-Good luck!
-
-
-
+This      is a second paragraph with extraneous whitespace.
 ```
 
 into
 
 ```
-This is some very badly formatted text. It is going to be a quick but slightly challenging exercise for some
-cli tooling related development more than data structure and algorithm.
+This is a badly formatted file. This line is pretty long! It's way more than 80
+characters! I feel a line wrap coming on!
 
-However, this essentially comes down to the data structure and algorithm. Good luck!
+This is a second paragraph with extraneous whitespace.
 ```
 
 This applications may need the following areas to look at;
