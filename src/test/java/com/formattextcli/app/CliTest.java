@@ -42,7 +42,18 @@ public class CliTest {
     @Test
     void applicationStarts() {
         cli.start(new String[] {});
-        assertEquals("Do you need some help to learn how to use this CLI tool?", out.toString().trim());
+        String banner = "\n" +
+                "\n" +
+                " ______                         _     _______        _      _____ _ _ \n" +
+                "|  ____|                       | |   |__   __|      | |    / ____| (_)\n" +
+                "| |__ ___  _ __ _ __ ___   __ _| |_     | | _____  _| |_  | |    | |_ \n" +
+                "|  __/ _ \\| '__| '_ ` _ \\ / _` | __|    | |/ _ \\ \\/ / __| | |    | | |\n" +
+                "| | | (_) | |  | | | | | | (_| | |_     | |  __/>  <| |_  | |____| | |\n" +
+                "|_|  \\___/|_|  |_| |_| |_|\\__,_|\\__|    |_|\\___/_/\\_\\\\__|  \\_____|_|_|\n" +
+                "                                                                      \n" +
+                "                                                                      \n";
+
+        assertEquals(banner.trim(), out.toString().trim());
     }
 
     @Test
@@ -63,5 +74,13 @@ public class CliTest {
         Files.writeString(tempFile, "some        stringaerawerawrfasdfsafsdafdsafwemroqweroiqwerniowen weoirqoweijr reqwirojewor qweorijq\n        nreally long\n\n\n\n\n\n\n\n\nntext");
         cli.start(new String[] { tempFile.toString() });
         assertEquals("some stringaerawerawrfasdfsafsdafdsafwemroqweroiqwerniowen weoirqoweijr\nreqwirojewor qweorijq nreally long\n\nntext", out.toString().trim());
+    }
+
+    @Test
+    void runsDefaultCommandsToParseFileIntoLinesError() throws IOException {
+        final Path tempFile = Files.createFile(tempDir.resolve("myfile.txt"));
+        Files.writeString(tempFile, "        \n \n \n \n                \n \n \n \n         \n  \n \n \n");
+        cli.start(new String[] { tempFile.toString() });
+        assertEquals("", out.toString().trim());
     }
 }

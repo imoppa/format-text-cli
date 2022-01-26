@@ -15,7 +15,7 @@ public class Cli {
         List<String> args = Arrays.asList(_args);
 
         if (args.isEmpty()) {
-            System.out.println("Do you need some help to learn how to use this CLI tool?");
+            this._printBanner();
             return;
         }
 
@@ -70,7 +70,7 @@ public class Cli {
     }
 
     private void _formatLines(ArrayList<Line> formattedLines, String lineFromFile) {
-        if (lineFromFile.isEmpty()) {
+        if (lineFromFile.isEmpty() && formattedLines.size() > 0) {
             int currentLineIndex = formattedLines.size()-1;
             // previous line has no length, then it's most likely an empty line -> skip it
             Line currentLine = formattedLines.get(currentLineIndex);
@@ -102,5 +102,20 @@ public class Cli {
             newLine.addText(s);
             formattedLines.add(newLine);
         });
+    }
+
+    private void _printBanner() {
+        String banner = "\n" +
+                "\n" +
+                " ______                         _     _______        _      _____ _ _ \n" +
+                "|  ____|                       | |   |__   __|      | |    / ____| (_)\n" +
+                "| |__ ___  _ __ _ __ ___   __ _| |_     | | _____  _| |_  | |    | |_ \n" +
+                "|  __/ _ \\| '__| '_ ` _ \\ / _` | __|    | |/ _ \\ \\/ / __| | |    | | |\n" +
+                "| | | (_) | |  | | | | | | (_| | |_     | |  __/>  <| |_  | |____| | |\n" +
+                "|_|  \\___/|_|  |_| |_| |_|\\__,_|\\__|    |_|\\___/_/\\_\\\\__|  \\_____|_|_|\n" +
+                "                                                                      \n" +
+                "                                                                      \n";
+
+        System.out.println(banner);
     }
 }
