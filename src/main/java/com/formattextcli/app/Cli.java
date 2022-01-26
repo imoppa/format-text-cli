@@ -43,7 +43,6 @@ public class Cli {
     private void _handleDefaultCommand(String filePath) {
         try {
             FileHelper fileHelper = new FileHelper(filePath);
-            boolean exists = fileHelper.exists();
             if (!fileHelper.exists()) {
                 System.err.println("It seems that it is an incorrect file path");
                 return;
